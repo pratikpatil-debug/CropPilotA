@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WHY ARE YOU ASKING ME? - The Overloaded Q&amp;A Engine</title>
+  <meta name="description" content="An intentionally overloaded, chaotic control panel that actually answers your questions. Ask your question, regret it later, but definitely get an answer.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Mixing intentionally distinct fonts for chaotic control panel visual clash -->
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Comic+Neue:wght@400;700&family=Courier+Prime:wght@400;700&family=Impact&family=Inter:wght@400;600;800&family=VT323&display=swap" rel="stylesheet">
+</head>
+<body class="theme-overload">
+
+  <!-- ==================== FAKE UTILITY BAR 1 (Retro 90s OS Style) ==================== -->
+  <header class="retro-menubar" id="topMenuBar">
+    <div class="menubar-left">
+      <span class="retro-icon">💾</span>
+      <span class="menubar-title"><strong>AskMe-OS v4.19.0-rc99</strong></span>
+      <span class="menu-item" id="menuFile">File [F1]</span>
+      <span class="menu-item" id="menuEdit">Edit [Ctrl+Z x 100]</span>
+      <span class="menu-item" id="menuPanic">Panic [Esc]</span>
+      <span class="menu-item" id="menuRegret">Regret</span>
+      <span class="menu-item" id="menuConfusion">Confusion (42%)</span>
+      <span class="menu-item" id="menuHelp">Help (?)</span>
+    </div>
+    <div class="menubar-right">
+      <span class="sys-led led-green" title="Quantum Core: Fluctuation Normal"></span>
+      <span class="sys-led led-red blink" title="Question Queue: Overflowing"></span>
+      <span class="sys-led led-yellow" title="Common Sense: 0% Available"></span>
+      <span class="menubar-stat" id="clockWidget">12:00:00 AM</span>
+      <button class="mini-beveled-btn" id="soundToggleBtn" title="Toggle 8-bit sound effects">🔊 SOUND: ON</button>
+      <button class="mini-beveled-btn btn-danger" id="reorganizeBtn" title="Reorganize UI layout randomly">🔀 SHUFFLE CHAOS</button>
+    </div>
+  </header>
+
+  <!-- ==================== FAKE LIVE MARQUEE TICKER TAPE ==================== -->
+  <div class="ticker-wrapper" id="liveTickerTape">
+    <div class="ticker-badge">LIVE SURVEILLANCE &amp; STATUS:</div>
+    <div class="ticker-marquee">
+      <span class="ticker-content" id="tickerText">
+        🔴 SYSTEM STATUS: Overwhelmed but operational • USER #9842 just asked: "Why do hot dogs come in packs of 10 but buns in 8?" • RECALIBRATING QUESTION DENSITY: 89.4% • ADVISORY: Do not stare directly into the answer container • SERVER TEMPERATURE: Luke-warm (31°C) • REASON TO BE HERE: Highly questionable • ANSWER RELIABILITY: 100% Genuine •
+      </span>
+    </div>
+  </div>
+
+  <!-- ==================== TOOLBAR 2 (Futuristic Cyberpunk Web3 Style) ==================== -->
+  <nav class="cyber-toolbar" id="subToolbar">
+    <div class="cyber-pill">
+      <span class="cyber-label">QUANTUM_ENTROPY:</span>
+      <span class="cyber-val" id="entropyVal">0.7428</span>
+    </div>
+    <div class="cyber-pill">
+      <span class="cyber-label">CLICKS_WASTED:</span>
+      <span class="cyber-val text-warning" id="clicksWastedCount">0</span>
+    </div>
+    <div class="cyber-pill">
+      <span class="cyber-label">SURPRISE_ADS_SERVED:</span>
+      <span class="cyber-val text-neon" id="surpriseAdsCount">0</span>
+    </div>
+    <div class="cyber-pill">
+      <span class="cyber-label">TOTAL_ANSWERS_FORCED:</span>
+      <span class="cyber-val text-neon" id="answersServedCount">14,208</span>
+    </div>
+    <div class="toolbar-actions">
+      <button class="cyber-btn" id="typingAdModeBtn" title="Controls how often typing triggers ads!">⌨️ TYPING ADS: EVERY WORD</button>
+      <button class="cyber-btn" id="clickTrapBtn" title="Click anywhere triggers ads!">🎯 CLICK TRAP: MAX</button>
+      <button class="cyber-btn" id="quickTipBtn">💡 UNHELPFUL TIP</button>
+      <button class="cyber-btn" id="fakeDefragBtn">🧹 PURGE CACHE (0B)</button>
+      <button class="cyber-btn" id="apiConfigBtn">⚙️ AI CONFIG</button>
+    </div>
+  </nav>
+
+  <!-- ==================== MAIN 5-SECTION OVERLOADED CONTAINER ==================== -->
+  <main class="overloaded-grid-container" id="mainContainer">
+
+    <!-- ========================================================
+         SECTION 1: LEFT SIDEBAR - FAKE TELEMETRY & JUNK GAUGES
+         (Industrial Brutalist / Lab Instruments Style)
+         ======================================================== -->
+    <aside class="panel-section panel-telemetry" id="sectionTelemetry">
+      <div class="panel-header header-hazard">
+        <span class="hazard-stripe"></span>
+        <h2>⚡ SYSTEM TELEMETRY &amp; METERS</h2>
+        <span class="badge-mini">LIVE</span>
+      </div>
+
+      <!-- Fake Visitor Counter (Retro Odometer Style) -->
+      <div class="widget-box widget-counter">
+        <div class="widget-title">VISITOR COUNTER (TOTALLY ACCURATE)</div>
+        <div class="odometer-display" id="visitorCounter">
+          <span class="digit">0</span><span class="digit">4</span><span class="digit">8</span><span class="digit">9</span><span class="digit">2</span><span class="digit">1</span><span class="digit">5</span>
+        </div>
+        <div class="widget-caption">Users regretting their visit right now</div>
+      </div>
+
+      <!-- People currently asking questions -->
+      <div class="widget-box widget-live-askers">
+        <div class="widget-title">LIVE QUESTION TRANSMISSIONS</div>
+        <div class="live-counter-row">
+          <span class="pulse-dot"></span>
+          <span class="counter-number" id="liveAskersCount">1,842</span>
+          <span class="counter-desc">inquiring minds suffering</span>
+        </div>
+        <div class="ticker-mini" id="miniLiveQuery">
+          <marquee scrollamount="3" id="liveTickerQuestions">
+            "Is cereal soup?" • "Why is Tuesday?" • "Can goldfish recognize betrayal?" • "How to exit Vim?" • "Why are you asking me?"
+          </marquee>
+        </div>
+      </div>
+
+      <!-- Fake System Health Gauge -->
+      <div class="widget-box widget-gauge">
+        <div class="widget-title">SYSTEM HEALTH &amp; STABILITY</div>
+        <div class="gauge-container">
+          <svg class="dial-svg" viewBox="0 0 100 55">
+            <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#333" stroke-width="8" stroke-linecap="round"/>
+            <path id="dialArc" d="M 10 50 A 40 40 0 0 1 78 22" fill="none" stroke="#00ff66" stroke-width="8" stroke-linecap="round"/>
+            <line id="dialNeedle" x1="50" y1="50" x2="72" y2="24" stroke="#ff0055" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="4" fill="#fff"/>
+          </svg>
+          <div class="gauge-readout">
+            <span class="gauge-value" id="systemHealthVal">99.41%</span>
+            <span class="gauge-status">WITHIN PANIC THRESHOLD</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fake Website Optimization Meter -->
+      <div class="widget-box widget-optimization">
+        <div class="widget-title">WEBSITE OPTIMIZATION METER</div>
+        <div class="progress-bar-container">
+          <div class="progress-fill" id="optimizationFill" style="width: 14%;"></div>
+        </div>
+        <div class="opt-stats">
+          <span id="optPercent">14% OPTIMIZED</span>
+          <button class="tiny-action-btn" id="optimizeBtn">⚡ OPTIMIZE UI</button>
+        </div>
+        <div class="opt-note" id="optNote">UI is intentionally heavy and unoptimized.</div>
+      </div>
+
+      <!-- Pointless Oscilloscope Canvas -->
+      <div class="widget-box widget-oscilloscope">
+        <div class="widget-title">COGNITIVE BRAINWAVE MONITOR</div>
+        <canvas id="scopeCanvas" width="220" height="60"></canvas>
+        <div class="scope-freq" id="scopeFreq">Frequency: 440.12 Hz (Brain idle)</div>
+      </div>
+
+      <!-- Pointing Arrow #1 -->
+      <div class="random-arrow arrow-right">
+        <span>👉 QUESTION CHAMBER IS OVER THERE</span>
+      </div>
+    </aside>
+
+    <!-- ========================================================
+         SECTION 2: CENTER - THE MAIN INTERROGATION CHAMBER
+         (Neo-Corporate Brutalist + Experimental Clash)
+         ======================================================== -->
+    <section class="panel-section panel-center-stage" id="sectionMainStage">
+      
+      <!-- Over-the-top Header Banner -->
+      <div class="massive-annoying-hero">
+        <div class="hero-tag-cluster">
+          <span class="hero-tag tag-blink">⚠️ EXPERIMENTAL Q&amp;A TERMINAL ⚠️</span>
+          <span class="hero-tag tag-pink">ZERO COMMON SENSE</span>
+          <span class="hero-tag tag-yellow">100% USEFUL ANSWERS</span>
+          <span class="hero-tag tag-cyan">TOO MANY BUTTONS</span>
+        </div>
+        <h1 class="chaotic-main-title" id="mainHeading">
+          <span class="title-line-1">ASK YOUR QUESTION.</span>
+          <span class="title-line-2">REGRET IT LATER.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Welcome to <strong>"WHY ARE YOU ASKING ME?"</strong> — The world's most annoying, cluttered, and absurdly decorated question portal. We will test your patience, bombard you with completely useless indicators, but <em>never</em> fail to provide the actual, genuine answer.
+        </p>
+      </div>
+
+      <!-- Random arrow pointing to input -->
+      <div class="pointing-banner">
+        <span>👇 TYPE HERE (OR DON'T, WE WON'T JUDGE) 👇</span>
+      </div>
+
+      <!-- Main Input Box with Weird Rounded Inconsistent Corners -->
+      <div class="interrogation-card" id="interrogationCard">
+        <div class="card-corner-ribbon">CONFIDENTIAL QUERY</div>
+        <div class="input-header-bar">
+          <span class="input-label-badge">QUESTION TERMINAL #01</span>
+          <span class="char-count" id="charCounter">0 / 500 characters</span>
+          <span class="security-level">ENCRYPTION: SHAKY</span>
+        </div>
+
+        <div class="textarea-wrapper">
+          <textarea 
+            id="questionInput" 
+            class="cluttered-textarea" 
+            rows="4" 
+            placeholder="Type your question here... (e.g. What is artificial intelligence? Why is the sky blue? How do airplanes fly?)"
+            aria-label="Your Question"
+          ></textarea>
+        </div>
+
+        <!-- Live Keystroke Advertisement Banner (Updates on EVERY keystroke!) -->
+        <div class="typing-ad-banner" id="typingAdBanner">
+          <div class="typing-ad-header">
+            <span class="badge-mini" style="background:#dc2626;">🔴 LIVE KEYSTROKE AD</span>
+            <span id="typingAdKeystrokesCount" class="keystroke-badge">0 KEYSTROKES SPONSORED</span>
+          </div>
+          <div class="typing-ad-body" id="typingAdBodyText">
+            📢 <strong>KEYBOARD SPONSORSHIP ACTIVE:</strong> Every character typed triggers live promotions. Type to begin...
+          </div>
+        </div>
+
+        <!-- Quick Question Suggestions / Chips -->
+        <div class="suggestion-chips-container">
+          <span class="chip-legend">Or click one of these questions you definitely want to know:</span>
+          <div class="chip-grid" id="chipGrid">
+            <button class="chip-btn" data-query="What is artificial intelligence?">🤖 What is artificial intelligence?</button>
+            <button class="chip-btn" data-query="Why is the sky blue?">🌤️ Why is the sky blue?</button>
+            <button class="chip-btn" data-query="How do airplanes fly?">✈️ How do airplanes fly?</button>
+            <button class="chip-btn" data-query="What is quantum computing?">⚛️ What is quantum computing?</button>
+            <button class="chip-btn" data-query="How does photosynthesis work?">🌱 How does photosynthesis work?</button>
+            <button class="chip-btn" data-query="Who invented pizza?">🍕 Who invented pizza?</button>
+          </div>
+        </div>
+
+        <!-- THE BUTTON CLUSTER: Main Button + Unnecessary Buttons -->
+        <div class="absurd-button-cluster" id="buttonCluster">
+          <!-- Main Button -->
+          <button class="mega-action-btn primary-pulse" id="btnGetAnswer">
+            <span class="btn-subtext">CLICK TO INITIATE INCONVENIENCE</span>
+            <span class="btn-maintext">⚡ GET MY ANSWER ⚡</span>
+          </button>
+
+          <!-- Unnecessary Buttons Fighting For Attention -->
+          <div class="unnecessary-btn-row">
+            <button class="clash-btn btn-maybe" id="btnMaybe" title="Completely non-committal">
+              🤔 Maybe
+            </button>
+            <button class="clash-btn btn-probably" id="btnProbably" title="Statistically unlikely">
+              🤷 Probably
+            </button>
+            <button class="clash-btn btn-dontclick" id="btnDontClick" title="We warned you">
+              ⛔ Don't Click
+            </button>
+            <button class="clash-btn btn-clickanyway" id="btnClickAnyway" title="Rebellious choice">
+              🔥 Click Anyway
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           PROCESSING SCREEN (Unnecessarily Complicated Stages)
+           ======================================================== -->
+      <div class="processing-chamber hidden" id="processingChamber">
+        <div class="proc-header">
+          <span class="spinner-clown">🌀</span>
+          <h3 id="procMainTitle">QUESTION RECEIVED</h3>
+          <span class="proc-badge">STATUS: OVERTHINKING</span>
+        </div>
+
+        <p class="proc-current-phase" id="procPhaseText">Checking question...</p>
+
+        <!-- Erroneous Jump-Back Progress Bar -->
+        <div class="proc-progress-outer">
+          <div class="proc-progress-inner" id="procProgressBar" style="width: 12%;"></div>
+        </div>
+        <div class="proc-progress-stats">
+          <span id="procPercent">12%</span>
+          <span id="procEstimatedTime">Estimated wait: 4 seconds (or forever)</span>
+        </div>
+
+        <!-- Complicated System Diagnostic Log Terminal -->
+        <div class="fake-terminal-log" id="terminalLog">
+          <div class="term-line">> [INIT] Received 48 bytes of pure curiosity...</div>
+          <div class="term-line">> [CHECKER] Checking the checker's credential file...</div>
+          <div class="term-line">> [SUBSYSTEM] Consulting unnecessary external agencies...</div>
+        </div>
+
+        <div class="proc-footer-note">
+          <span class="blink">⚠️ Please do not close your eyes. We are watching you watch us.</span>
+        </div>
+      </div>
+
+      <!-- ========================================================
+           ANSWER SECTION (Prominent, 100% Genuine, Clear, Useful)
+           ======================================================== -->
+      <div class="answer-chamber hidden" id="answerChamber">
+        <div class="answer-stamp">OFFICIALLY VERIFIED &bull; 100% ACCURATE</div>
+
+        <div class="answer-header">
+          <div class="answer-title-group">
+            <span class="answer-icon">🎯</span>
+            <div>
+              <h3 class="answer-heading">ANSWER READY</h3>
+              <p class="answer-sub">Here is your actual useful answer. It wasn't that hard, was it?</p>
+            </div>
+          </div>
+          <div class="answer-actions">
+            <button class="answer-action-btn" id="copyAnswerBtn" title="Copy answer to clipboard">📋 Copy Answer</button>
+            <button class="answer-action-btn" id="speakAnswerBtn" title="Read answer out loud">🔊 Read Aloud</button>
+          </div>
+        </div>
+
+        <div class="question-echo-box">
+          <span class="echo-label">YOUR QUESTION:</span>
+          <p class="echo-text" id="answeredQuestionText">"What is artificial intelligence?"</p>
+        </div>
+
+        <!-- The Real, Useful Answer Body -->
+        <div class="answer-body-card">
+          <div class="answer-source-badge" id="answerSourceBadge">SOURCE: VERIFIED KNOWLEDGE ARCHIVE</div>
+          <div class="answer-content-text" id="answerContentText">
+            <!-- Will be populated dynamically with high quality real answer -->
+          </div>
+        </div>
+
+        <!-- Question Stats & Certificate of Completion -->
+        <div class="answer-meta-grid">
+          <div class="meta-pill">
+            <span class="meta-k">PATIENCE EXHAUSTED:</span>
+            <span class="meta-v">89.2%</span>
+          </div>
+          <div class="meta-pill">
+            <span class="meta-k">MOCK ADS ENDURED:</span>
+            <span class="meta-v" id="adsEnduredCount">1</span>
+          </div>
+          <div class="meta-pill">
+            <span class="meta-k">ANSWER USEFULNESS:</span>
+            <span class="meta-v text-neon">GENUINE (100%)</span>
+          </div>
+          <div class="meta-pill">
+            <span class="meta-k">TIME SPENT REGRETTING:</span>
+            <span class="meta-v" id="timeSpentVal">5.4 seconds</span>
+          </div>
+        </div>
+
+        <!-- ========================================================
+             FINAL SCREEN / POST-ANSWER CELEBRATION
+             ======================================================== -->
+        <div class="final-celebration-box" id="finalCelebration">
+          <div class="trophy-row">🏆 💥 🎊 💥 🏆</div>
+          <h2 class="final-title-1">CONGRATULATIONS.</h2>
+          <h3 class="final-title-2">YOU GOT YOUR ANSWER.</h3>
+          <p class="final-title-3">IT ONLY TOOK WAY TOO MANY CLICKS.</p>
+
+          <div class="final-button-cluster">
+            <button class="btn-never-again" id="btnNeverAgain">
+              🙅‍♂️ I'M NEVER USING THIS AGAIN
+            </button>
+            <button class="btn-ask-another" id="btnAskAnother">
+              🔄 ASK ANOTHER QUESTION (AT YOUR OWN RISK)
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================
+         SECTION 3: RIGHT SIDEBAR - ANNOYING WIDGET COLLAPSE
+         (Web 2.0 Pastel / Overloaded Card Pile)
+         ======================================================== -->
+    <aside class="panel-section panel-widgets" id="sectionWidgets">
+      <div class="panel-header header-candy">
+        <h2>🎪 USELESS UTILITIES</h2>
+        <span class="badge-round">37 UNREAD</span>
+      </div>
+
+      <!-- Annoying Notification Bell with Popups -->
+      <div class="widget-box widget-bell-box">
+        <div class="bell-header">
+          <button class="bell-trigger-btn" id="bellBtn">
+            <span class="bell-icon">🔔</span>
+            <span class="bell-badge" id="bellBadge">99+</span>
+          </button>
+          <div class="bell-details">
+            <strong>NOTIFICATION CENTER</strong>
+            <small>Zero helpful messages</small>
+          </div>
+        </div>
+        <div class="bell-dropdown-preview" id="bellFeed">
+          <div class="bell-item unread">
+            <span class="bell-item-icon">⚠️</span>
+            <div class="bell-item-body">
+              <strong>Question Queue Warning</strong>
+              <p>You have not asked enough questions today.</p>
+            </div>
+          </div>
+          <div class="bell-item">
+            <span class="bell-item-icon">🎉</span>
+            <div class="bell-item-body">
+              <strong>Achievement: Breathing</strong>
+              <p>You inhaled oxygen successfully 12 times.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fake Achievement System -->
+      <div class="widget-box widget-achievements">
+        <div class="widget-title">🏆 HARMFUL ACHIEVEMENTS (1 / 99)</div>
+        <div class="achievement-card">
+          <div class="ach-icon">🏅</div>
+          <div class="ach-info">
+            <strong>Unlocked Absolutely Nothing</strong>
+            <p>Reward: 0 EXP, 0 Coins, Pure Regret</p>
+          </div>
+        </div>
+        <button class="tiny-action-btn w-full" id="claimRewardBtn">CLAIM 0 POINTS</button>
+      </div>
+
+      <!-- Nested Scrolling Section: "TERMS OF ASKING QUESTIONS" -->
+      <div class="widget-box widget-nested-scroll">
+        <div class="widget-title">📜 MANDATORY CONTRACT (SCROLL TO READ)</div>
+        <div class="nested-scroll-outer">
+          <div class="nested-scroll-inner" id="nestedTerms">
+            <p><strong>CLAUSE 1.1:</strong> By viewing this text, you agree that you are actively scrolling inside a tiny box inside another box.</p>
+            <p><strong>CLAUSE 1.2:</strong> The questions you ask may or may not be answered with scientific precision, but definitely after a mock advertisement.</p>
+            <p><strong>CLAUSE 1.3:</strong> No ducks were harmed in the making of this control panel.</p>
+            <p><strong>CLAUSE 1.4:</strong> If you find a bug, please tell someone who cares, because our web developer is currently trapped in a marquee tag.</p>
+            <p><strong>CLAUSE 1.5:</strong> Clicking "I Accept" does not actually submit anything, but you will feel a tiny sense of closure.</p>
+            <p><strong>CLAUSE 1.6:</strong> You are still scrolling. Why are you reading this legal fiction?</p>
+            <p><strong>CLAUSE 1.7:</strong> The cake is neither a lie nor a truth; it is simply carbohydrates.</p>
+            <p><strong>CLAUSE 1.8:</strong> Congratulations on reaching line 8. Your reward is more text.</p>
+          </div>
+        </div>
+        <button class="tiny-action-btn" id="agreeTermsBtn">AGREE TO NOTHING</button>
+      </div>
+
+      <!-- Pointing Arrow #2 -->
+      <div class="random-arrow arrow-left">
+        <span>👈 DO NOT LOOK HERE, LOOK AT THE QUESTION</span>
+      </div>
+
+      <!-- Weather on Mars Widget -->
+      <div class="widget-box widget-weather">
+        <div class="widget-title">WEATHER IN JEZERO CRATER (MARS)</div>
+        <div class="weather-row">
+          <span class="weather-temp">-64°C</span>
+          <span class="weather-cond">💨 Dusty &amp; Inhospitable</span>
+        </div>
+        <small>Irrelevant to your question, but good to know.</small>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- ========================================================
+       SECTION 4: ACADEMIC 1996 HTML TABLE STRIP
+       (Old School Geocities / Academic Web Clash)
+       ======================================================== -->
+  <section class="geocities-strip" id="sectionGeocities">
+    <div class="geocities-inner">
+      <span class="construction-gif">🚧</span>
+      <span><strong>WEBMASTER NOTE:</strong> Best viewed in Netscape Navigator 3.0 at 800x600 resolution with 256 colors. Under permanent construction since 1997.</span>
+      <span class="construction-gif">🚧</span>
+    </div>
+    <div class="old-table-container">
+      <table class="academic-table">
+        <thead>
+          <tr>
+            <th>Module ID</th>
+            <th>Design Paradigm</th>
+            <th>Responsible Committee</th>
+            <th>Did They Communicate?</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MOD-001</td>
+            <td>Overloaded Control Panel</td>
+            <td>Sub-committee on Confusion</td>
+            <td><strong>NO</strong></td>
+            <td>Operational</td>
+          </tr>
+          <tr>
+            <td>MOD-002</td>
+            <td>Mock Ad Interceptor</td>
+            <td>Monetization of Patience LLC</td>
+            <td><strong>NEVER</strong></td>
+            <td>Aggressive</td>
+          </tr>
+          <tr>
+            <td>MOD-003</td>
+            <td>Genuine Knowledge Core</td>
+            <td>Actual AI Fact Retrieval Unit</td>
+            <td><strong>IGNORED</strong></td>
+            <td>100% Reliable</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION 5: THE RIDICULOUS FOOTER WITH TOO MANY LINKS
+       ======================================================== -->
+  <footer class="mega-cluttered-footer" id="mainFooter">
+    <div class="footer-hazard-bar">
+      <span>END OF PAGE &bull; COMMENCE FOOTER APPRECIATION &bull; OVERLOAD FACTOR 10/10</span>
+    </div>
+
+    <div class="footer-columns-grid">
+      <div class="footer-col">
+        <h4>NAVIGATION OF DOOM</h4>
+        <ul>
+          <li><a href="#topMenuBar">Scroll To The Top</a></li>
+          <li><a href="#interrogationCard">Scroll Back To Question</a></li>
+          <li><a href="#sectionTelemetry">Look At Telemetry Again</a></li>
+          <li><a href="#nestedTerms">Read Clause 1.4 Again</a></li>
+          <li><a href="#" class="dummy-link">Sitemap (We Are Lost)</a></li>
+          <li><a href="#" class="dummy-link">Download More RAM</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>LEGAL NONSENSE</h4>
+        <ul>
+          <li><a href="#" class="dummy-link">Terms of Confusion</a></li>
+          <li><a href="#" class="dummy-link">Privacy Policy (1998 Edition)</a></li>
+          <li><a href="#" class="dummy-link">Cookie Recipe (Chocolate Chip)</a></li>
+          <li><a href="#" class="dummy-link">Right To Be Annoyed</a></li>
+          <li><a href="#" class="dummy-link">Arbitration by Coin Flip</a></li>
+          <li><a href="#" class="dummy-link">Zero Liability for Wasted Seconds</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>CORPORATE JARGON</h4>
+        <ul>
+          <li><a href="#" class="dummy-link">Synergistic Overkill</a></li>
+          <li><a href="#" class="dummy-link">Paradigm Shift Department</a></li>
+          <li><a href="#" class="dummy-link">Chief Disorganization Officer</a></li>
+          <li><a href="#" class="dummy-link">Investor Disappointment Deck</a></li>
+          <li><a href="#" class="dummy-link">Press Release: We Made A Button</a></li>
+          <li><a href="#" class="dummy-link">Contact The Server Room Hamster</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>FREQUENTLY AVOIDED QUESTIONS</h4>
+        <ul>
+          <li><a href="#" class="dummy-link">Why does this look like this?</a></li>
+          <li><a href="#" class="dummy-link">Can I make it stop? (No)</a></li>
+          <li><a href="#" class="dummy-link">Is the answer actually real? (Yes!)</a></li>
+          <li><a href="#" class="dummy-link">Who authorized this design?</a></li>
+          <li><a href="#" class="dummy-link">Why are there 4 different fonts?</a></li>
+          <li><a href="#" class="dummy-link">Is Steve in accounting okay?</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>COMMUNITY &amp; JUNK</h4>
+        <ul>
+          <li><a href="#" class="dummy-link">Join The Hall of Patience</a></li>
+          <li><a href="#" class="dummy-link">Submit A Worse Idea</a></li>
+          <li><a href="#" class="dummy-link">Report Functionality (Bug)</a></li>
+          <li><a href="#" class="dummy-link">Rate Our Confusion: 5/5</a></li>
+          <li><a href="#" class="dummy-link">Print This Website On Paper</a></li>
+          <li><a href="#" class="dummy-link">Close Browser (Shortcut: Alt+F4)</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <p>&copy; 2026 <strong>"WHY ARE YOU ASKING ME?"</strong> &bull; All Rights Reversed &bull; Engineered to be deliberately frustrating yet technically infallible.</p>
+    </div>
+  </footer>
+
+  <!-- ========================================================
+       MODAL 1: ARE YOU REALLY SURE? (Unnecessary Confirmation)
+       ======================================================== -->
+  <div class="modal-backdrop hidden" id="confirmModal">
+    <div class="modal-box modal-confirm">
+      <div class="modal-title-bar">
+        <span>⚠️ QUESTION SUBMISSION PROTOCOL v2.9</span>
+        <button class="modal-close-x" id="confirmCloseX">&times;</button>
+      </div>
+      <div class="modal-inner-content">
+        <div class="big-question-mark">❓</div>
+        <h3>ARE YOU REALLY SURE?</h3>
+        <p>You are about to request genuine human-grade knowledge from an overloaded control panel.</p>
+        <p class="modal-subtext">Are you psychologically prepared to receive this answer?</p>
+
+        <div class="modal-checklist">
+          <label><input type="checkbox" checked disabled> I have accepted that this website has too many buttons.</label>
+          <label><input type="checkbox" checked disabled> I understand a mock advertisement is imminent.</label>
+          <label><input type="checkbox" checked disabled> I will not blame the AI for answering correctly.</label>
+        </div>
+
+        <div class="modal-btn-row">
+          <button class="modal-btn btn-proceed" id="btnConfirmProceed">
+            ✅ YES, I REGRET NOTHING
+          </button>
+          <button class="modal-btn btn-cancel" id="btnConfirmCancel">
+            ❌ I was not prepared for this
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL 2: THE MANDATORY MOCK ADVERTISEMENT OVERLAY
+       (Every meaningful click triggers one of these funny ads)
+       ======================================================== -->
+  <div class="modal-backdrop hidden" id="mockAdModal">
+    <div class="modal-box modal-ad">
+      <div class="ad-watermark">DEMO / MOCK ADVERTISEMENT ONLY</div>
+      
+      <div class="ad-header-strip">
+        <span class="ad-sponsor-label">📢 SPONSORED BY ABSOLUTELY NOBODY</span>
+        <div class="ad-timer-countdown" id="adTimerText">Skip in 3s...</div>
+      </div>
+
+      <div class="ad-content-stage" id="adContentStage">
+        <!-- Injected via JavaScript from ad pool -->
+      </div>
+
+      <div class="ad-footer-bar">
+        <span class="ad-disclaimer">Zero products sold. 100% satire. Your answer is waiting.</span>
+        <button class="btn-skip-ad" id="btnSkipAd">
+          ⏭️ SKIP ADVERTISEMENT (0s)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL 3: "FAIR ENOUGH" POPUP (Final Screen Response)
+       ======================================================== -->
+  <div class="modal-backdrop hidden" id="fairEnoughModal">
+    <div class="modal-box modal-fair-enough">
+      <div class="modal-title-bar">
+        <span>👋 DEPARTURE LOG</span>
+        <button class="modal-close-x" id="fairCloseX">&times;</button>
+      </div>
+      <div class="modal-inner-content text-center">
+        <div class="emoji-huge">🤝</div>
+        <h2>Fair enough.</h2>
+        <p>We completely understand. Even the developers barely survived testing this.</p>
+        <p class="text-muted">Take a deep breath. Look at a wall. Relax your eyes.</p>
+        <button class="modal-btn btn-proceed" id="btnFairClose">Return to peace</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL 4: OPTIONAL EXTERNAL AI API CONFIG
+       (Allows user to configure an external AI endpoint if desired,
+       with zero secrets hardcoded, completely client-side in sessionStorage)
+       ======================================================== -->
+  <div class="modal-backdrop hidden" id="apiConfigModal">
+    <div class="modal-box modal-api">
+      <div class="modal-title-bar">
+        <span>⚙️ OPTIONAL EXTERNAL AI CONNECTION</span>
+        <button class="modal-close-x" id="apiConfigCloseX">&times;</button>
+      </div>
+      <div class="modal-inner-content">
+        <p><strong>Note:</strong> The built-in Wikipedia REST API + Verified Knowledge Core works 100% out-of-the-box for free without any API key!</p>
+        <p class="modal-subtext">If you would like to connect your own OpenAI or Gemini compatible key, you can do so here. Stored strictly in your browser's local session memory:</p>
+        
+        <div class="form-group">
+          <label for="customApiKey">Custom API Key (Optional):</label>
+          <input type="password" id="customApiKey" placeholder="sk-..." class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="customEndpoint">Custom API Endpoint (Optional):</label>
+          <input type="text" id="customEndpoint" placeholder="https://api.openai.com/v1/chat/completions" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="customModel">Model Name (e.g. gpt-4o-mini or gemini-1.5-flash):</label>
+          <input type="text" id="customModel" placeholder="gpt-4o-mini" class="form-input">
+        </div>
+
+        <div class="modal-btn-row">
+          <button class="modal-btn btn-proceed" id="btnSaveApiConfig">Save For This Session</button>
+          <button class="modal-btn btn-cancel" id="btnClearApiConfig">Reset To Built-In Engine</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       TOAST NOTIFICATION CONTAINER (Floating Harmless Alerts)
+       ======================================================== -->
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+  <!-- Load Main Logic -->
+  <script src="script.js"></script>
+</body>
+</html>
